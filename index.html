@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hexed Portfolio</title>
+        <link rel="stylesheet" href="style.css"> <!-- Link til ekstern CSS -->
+    </head>
+    <body>
+        <header>
+            <h1>Hexed Portfolio</h1>
+            <div class="topline"></div>
+            <div class="buttons">
+                <button class="button">Scripting</button>
+                <button class="button">Discord</button>
+            </div>
+        </header>
+
+        <main>
+            <section class="scripts">
+                <h2>Roblox Script By Hexed</h2>
+                <div class="scripts-container">
+                    <!-- Script Card 1 -->
+                    <div class="script-card">
+                        <div class="script-box">
+                            <h3>Script 1</h3>
+                            <p class="description">This script makes you double jump</p>
+                            <pre><code>
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+local userInputService = game:GetService("UserInputService")
+
+local jumpCount = 0
+local maxJumps = 2
+
+character:WaitForChild("HumanoidRootPart")
+humanoid:GetPropertyChangedSignal("FloorMaterial"):Connect(function()
+
+    if humanoid.FloorMaterial ~= Enum.Material.Air then
+        jumpCount = 0
+    end
+end)
+
+userInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+
+    if input.UserInputType == Enum.UserInputType.Keyboard and input.KeyCode == Enum.KeyCode.Space then
+        if jumpCount < maxJumps then
+            humanoid:ChangeState(Enum.HumanoidStateType.Physics)
+            humanoid:Move(Vector3.new(0, 50, 0))
+            jumpCount = jumpCount + 1
+        end
+    end
+end)
+                            </code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Script Card 2 -->
+                    <div class="script-card">
+                        <div class="script-box">
+                            <h3>Script 2</h3>
+                            <p class="description">This script makes you click a button to get 1 click in leaderstats</p>
+                            <pre><code>
+LEADERSTATS:
+
+game.Players.PlayerAdded:Connect(function(player)
+                        
+local leaderstats = Instance.new("Folder")
+leaderstats.Name = "leaderstats"
+leaderstats.Parent = player
+                            
+
+local clicks = Instance.new("IntValue")
+clicks.Name = "Clicks"
+clicks.Value = 0    
+clicks.Parent = leaderstats
+end)
+
+ CLICK BUTTON:
+
+local button = script.Parent -- Reference to the button
+local player = game.Players.LocalPlayer
+local clicksStat = player:WaitForChild("leaderstats"):WaitForChild("Clicks")
+
+button.MouseButton1Click:Connect(function()
+ 
+    clicksStat.Value = clicksStat.Value + 1
+end)
+
+                            </code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Script Card 3 -->
+                    <div class="script-card">
+                        <div class="script-box">
+                            <h3>Script 3</h3>
+                            <p class="description">This script makes you buy a gamepass with a thanks message</p>
+                            <pre><code>
+local button = script.Parent
+local player = game.Players.LocalPlayer
+                                
+
+local gamePassID = 123456789
+                                
+button.MouseButton1Click:Connect(function()
+if player:HasGamePass(gamePassID) then
+
+local message = Instance.new("TextLabel")
+message.Text = "Thank you for buying the GamePass!"
+message.Size = UDim2.new(0, 400, 0, 50)
+message.Position = UDim2.new(0.5, -200, 0.5, -25) -- Center the message
+message.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Green color for the message
+message.Parent = player.PlayerGui:WaitForChild("ScreenGui")
+else
+
+local message = Instance.new("TextLabel")
+message.Text = "You need to buy the GamePass first!"
+message.Size = UDim2.new(0, 400, 0, 50)
+message.Position = UDim2.new(0.5, -200, 0.5, -25)
+message.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Red color for the message
+message.TextColor3 = Color3.fromRGB(255, 255, 255) -- White text color
+message.Parent = player.PlayerGui:WaitForChild("ScreenGui")
+end
+end)
+                                </code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Script Card 4 -->
+                    <div class="script-card">
+                        <div class="script-box">
+                            <h3>Script 4</h3>
+                            <p class="description">This script adds a health regen function</p>
+                            <pre><code>
+Health Regen Script
+local regenAmount = 5
+ocal regenInterval = 5
+                                
+game.Players.PlayerAdded:Connect(function(player)
+
+player.CharacterAdded:Connect(function(character)
+
+local humanoid = character:WaitForChild("Humanoid")
+                                        
+while humanoid and humanoid.Health > 0 do
+
+wait(regenInterval)
+                                            
+if humanoid.Health < humanoid.MaxHealth then
+humanoid.Health = humanoid.Health + regenAmount
+                                                
+Ensure health doesn't exceed max health
+if humanoid.Health > humanoid.MaxHealth then
+humanoid.Health = humanoid.MaxHealth
+end
+end
+end
+end)
+end)
+                                </code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Script Card 5 -->
+                    <div class="script-card">
+                        <div class="script-box">
+                            <h3>Script 5</h3>
+                            <p class="description">This script creates a teleportation system</p>
+                            <pre><code>
+LOCAL SCRIPT (TEXTBUTTON)
+local button = script.Parent
+local player = game.Players.LocalPlayer
+local teleportDestination = game.Workspace:WaitForChild("TeleportDestination")
+
+button.MouseButton1Click:Connect(function()
+
+    if teleportDestination then
+
+        player.Character:SetPrimaryPartCFrame(teleportDestination.CFrame)
+    else
+        warn("Teleport destination part not found!")
+    end
+end)
+                            </code></pre>
+                        </div>
+                    </div>
+
+                    <!-- Script Card 6 -->
+                    <div class="script-card">
+                        <div class="script-box">
+                            <h3>Script 6</h3>
+                            <p class="description">This script enables you to set a spawn location</p>
+                            <pre><code>
+ServerScriptService - script
+game.Players.PlayerAdded:Connect(function(player)
+    -- Wait until the player's character is added
+    player.CharacterAdded:Connect(function(character)
+        -- Get the spawn location (the part you created)
+        local spawnLocation = game.Workspace:WaitForChild("SpawnLocation")
+
+        -- Set the character's position to the spawn location
+        character:SetPrimaryPartCFrame(spawnLocation.CFrame)
+    end)
+end)
+
+Workspace
+game.Players.PlayerAdded:Connect(function(player)
+    player.CharacterAdded:Connect(function(character)
+        -- Create a list of spawn locations
+        local spawnLocations = {}
+        for _, spawnPart in pairs(game.Workspace:GetChildren()) do
+            if spawnPart.Name:match("SpawnLocation") then
+                table.insert(spawnLocations, spawnPart)
+            end
+        end
+
+        -- Randomly choose a spawn location
+        local randomSpawn = spawnLocations[math.random(1, #spawnLocations)]
+
+        -- Set the player's spawn location
+        character:SetPrimaryPartCFrame(randomSpawn.CFrame)
+    end)
+end)
+
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </body>
+</html>
